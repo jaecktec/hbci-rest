@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('hbci-rest:server');
+
+app.listen(8080, function () {
+    debug(app.name + ' listening at ' + app.url);
+});
