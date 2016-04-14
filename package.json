@@ -16,7 +16,6 @@
     "iconv-lite": "^0.4.13",
     "morgan": "~1.6.1",
     "open-fin-ts-js-client": "^2.0.4",
-    "restify": "^4.0.4",
-    "request": "^2.71.0"
+    "restify": "^4.0.4"
   }
 }
