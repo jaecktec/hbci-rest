@@ -8,11 +8,15 @@
     "prune": "npm prune"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.3",
     "body-parser": "~1.13.2",
     "debug": "~2.2.0",
+    "eureka-js-client": "^2.4.0",
+    "http": "0.0.0",
+    "iconv-lite": "^0.4.13",
     "morgan": "~1.6.1",
     "open-fin-ts-js-client": "^2.0.4",
     "restify": "^4.0.4",
-    "async": "^2.0.0-rc.2"
+    "request": "^2.71.0"
   }
 }

@@ -4,8 +4,56 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+const Eureka_Lib = require('eureka-js-client');
+const Eureka = Eureka_Lib.Eureka;
+const assert = require('assert');
+
+const USE_EUREKA = process.env.EUREKA_ENABLED;
+
+const PORT = process.env.APPLICATION_PORT;
+const HOSTNAME = process.env.APPLICATION_HOSTNAME;
+
+const EUREKA_HOST = process.env.EUREKA_HOST;
+const EUREKA_PORT = process.env.EUREKA_PORT;
+
+
 var debug = require('debug')('hbci-rest:server');
+
+if (USE_EUREKA == "true") {
+    assert(PORT, "Set environment variable APPLICATION_PORT");
+    assert(HOSTNAME, "Set environment variable APPLICATION_HOSTNAME");
+    assert(EUREKA_HOST, "Set environment variable EUREKA_HOST");
+    assert(EUREKA_PORT, "Set environment variable EUREKA_PORT");
+
+
+    var appl_port = parseInt(PORT);
+    var eureka_port = parseInt(EUREKA_PORT);
+
+    const EUREKA_CONFIG = {
+        instance: {
+            app: 'hbci-service',
+            hostName: HOSTNAME,
+            ipAddr: '127.0.0.1',
+            port: {
+                '$': appl_port,
+                '@enabled': true,
+            },
+            vipAddress: "hbci.service.local",
+            dataCenterInfo: {
+                '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
+                name: "MyOwn"
+            }
+        },
+        eureka: {
+            host: EUREKA_HOST,
+            port: eureka_port,
+        }
+    };
+    const client = new Eureka(EUREKA_CONFIG);
+    client.start();
+}
+var app = require('../app');
+
 
 app.listen(8080, function () {
     debug(app.name + ' listening at ' + app.url);
